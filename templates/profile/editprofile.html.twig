@@ -1,0 +1,17 @@
+{% block title %}Modification du profil de
+	{{app.user.firstname}}
+	{{app.user.lastname}}
+{% endblock %}
+{% block body %}
+
+
+	<div class="">
+		<h4 class="text-right">Modification du profile de
+			{{app.user.firstname}}
+			{{app.user.lastname}}</h4>
+		{{form(form)}}
+
+		</div>
+
+
+	{% endblock %}

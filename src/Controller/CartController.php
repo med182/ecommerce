@@ -51,4 +51,42 @@ class CartController extends AbstractController
 
      return $this->redirectToRoute("cart_index");
     }
+
+
+    #[Route("/remove/{id}", name: "remove")]
+    public function remove(Product $product, SessionInterface $session){
+        $panier = $session->get("panier", []);
+        $id = $product->getId();
+        if(!empty($panier[$id])){
+            if($panier[$id]>1){
+                $panier[$id]--;
+            }else{
+                unset($panier[$id]);
+            }
+        }
+        $session->set("panier", $panier);
+
+        return $this->redirectToRoute("cart_index");
+    }
+
+    #[Route('/delete/{id}', name:'delete')]
+    public function delete(Product $product, SessionInterface $session){
+        $panier = $session->get("panier", []);
+        $id = $product->getId();
+        if(!empty($panier[$id])){
+        unset($panier[$id]);
+        }
+        $session->set("panier", $panier);
+
+        return $this->redirectToRoute("cart_index");
+    }
+    #[Route('/delete', name:'delete_all')]
+    public function deleteAll( SessionInterface $session){
+        
+   
+        $session->remove("panier");
+  
+       
+      return $this->redirectToRoute("cart_index");
+    }
 }
